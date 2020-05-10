@@ -1,2 +1,7 @@
 # Project exclude paths
 /target/
+
+#Excludes misc photos
+bowlingp1.JPEG
+bowlingp2.JPEG
+bowlingp3.JPEG
