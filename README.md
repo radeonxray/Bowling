@@ -11,7 +11,7 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
 **Created with IDE**: *Intellij 2020.1*
 
 ##
-###How to run:
+### How to run:
 
 * Open the project folder *Bowling* using an IDE that can compile and run *Java* Applications (Ex: [Netbeans](https://netbeans.org/) or [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows))
 * Make sure the IDE is pointing on the ***Main***-java. 
@@ -20,12 +20,13 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
 
 #
 
-###Incomplete Work and minor thoughts
+### Incomplete Work and minor thoughts
 
 * General
+    * Assignment is far from complete, which I'm not happy or satisfied with, at all.
     * Not keeping in line with SOLID principles
     * Java Application with Maven Framework, for quick and easy access to new libraries and dependencies.
-    * Code should be generally well-commented, perhaps to much.
+    * Code should be generally well-commented, perhaps too much.
     
 * Bowling Score
     * Not working 100% as intended
@@ -45,5 +46,10 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
 * Test
     * JUnit 5.4 was chosen for the project 
     * Did not complete any major or minor testing of the actual program
-    
+ 
+ ##
+ 
+ ### Misc   
+ 
+ ##
      
