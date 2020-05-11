@@ -1,5 +1,6 @@
 package com.company.Calculations;
 
+import com.company.ObjectClasses.ScoreAndPrevScoresObject;
 import com.company.ObjectClasses.ScoreFrameObject;
 
 //-------------------------------------------------------------!
@@ -12,103 +13,99 @@ public class NonSpareStrikeCalculations {
 
     /**
      * Method for calculating the provided score, if it is not a spare or a strike */
-    public void Calculating_NonSpareStrike(ScoreFrameObject currentScoreFrameObject,
-                                           int gameLength, ScoreFrameObject firstLeftScore,
-                                           ScoreFrameObject secondLeftScore, ScoreFrameObject thirdLeftScore){
-
-        ScoreFrameObject currentSc = currentScoreFrameObject;
+    public void Calculating_NonSpareStrike(ScoreAndPrevScoresObject scoresObject, int gameLength){
 
         boolean finalRound = false;
 
         CheckType ct = new CheckType();
         BowlingPoints bp = new BowlingPoints();
 
-        if(gameLength == currentSc.getFrameID()){
+        if(gameLength == scoresObject.getCurrentScore().getFrameID()){
             finalRound = true;
         }
 
         //If current score is not strike or spare
-        if (ct.checkIsNormalPoints(currentSc)) {
+        if (ct.checkIsNormalPoints(scoresObject.getCurrentScore())) {
             if(finalRound){
 
-                int points = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentSc);
-                currentSc.setPoints(points);
+                int points = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                scoresObject.getCurrentScore().setPoints(points);
             }
             //Check if previous was a strike
-            if (firstLeftScore != null && ct.checkIsStrike(firstLeftScore)) {
+            if (scoresObject.getFirstLeftScore() != null && ct.checkIsStrike(scoresObject.getFirstLeftScore())) {
 
                 //Check if left score is available
-                if (secondLeftScore != null) {
+                if (scoresObject.getSecondLeftScore() != null) {
 
                     //Check if secondLeft also was a strike
-                    if(ct.checkIsStrike(secondLeftScore)){
+                    if(ct.checkIsStrike(scoresObject.getSecondLeftScore())){
 
                         //Check if thirdleftscore is available
-                        if(thirdLeftScore != null){
+                        if(scoresObject.getThirdLeftScore() != null){
 
 
-                            int pointsSec = thirdLeftScore.getPoints() + secondLeftScore.getPoints() + bp.getStrikeFullPoints() + currentSc.getFirstScoreFramePoint();
-                            secondLeftScore.setPoints(pointsSec);
+                            int pointsSec = scoresObject.getThirdLeftScore().getPoints() + scoresObject.getSecondLeftScore().getPoints() + bp.getStrikeFullPoints() + scoresObject.getCurrentScore().getFirstScoreFramePoint();
+                            scoresObject.getSecondLeftScore().setPoints(pointsSec);
 
-                            int pointFirst = firstLeftScore.getPoints() + secondLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentSc);
-                            firstLeftScore.setPoints(pointFirst);
+                            int pointFirst = scoresObject.getFirstLeftScore().getPoints() + scoresObject.getSecondLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                            scoresObject.getFirstLeftScore().setPoints(pointFirst);
 
                         } else {
 
-                            int pointsSec = secondLeftScore.getPoints() + bp.getStrikeFullPoints() + currentSc.getFirstScoreFramePoint();
-                            secondLeftScore.setPoints(pointsSec);
+                            int pointsSec = scoresObject.getSecondLeftScore().getPoints() + bp.getStrikeFullPoints() + scoresObject.getCurrentScore().getFirstScoreFramePoint();
+                            scoresObject.getSecondLeftScore().setPoints(pointsSec);
 
-                            int pointFirst = secondLeftScore.getPoints() + bp.getStrikeTenPoints() + calcCurrentScoreFramePointSum(currentSc);
-                            firstLeftScore.setPoints(pointFirst);
+                            int pointFirst = scoresObject.getSecondLeftScore().getPoints() + bp.getStrikeTenPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                            scoresObject.getFirstLeftScore().setPoints(pointFirst);
 
-                            int pointCurrent = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentSc);
-                            currentSc.setPoints(pointCurrent);
+                            int pointCurrent = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                            scoresObject.getCurrentScore().setPoints(pointCurrent);
                         }
                     }
                     //PRev Was a strike, but no thirdLeft
                     else {
 
-                        int pointsFirstLeft = secondLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentSc) + bp.getStrikeTenPoints();
-                        firstLeftScore.setPoints(pointsFirstLeft);
-                        int pointsCurrent = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentScoreFrameObject);
-                        currentSc.setPoints(pointsCurrent);
+                        int pointsFirstLeft = scoresObject.getSecondLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore()) + bp.getStrikeTenPoints();
+                        scoresObject.getFirstLeftScore().setPoints(pointsFirstLeft);
+                        int pointsCurrent = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                        scoresObject.getCurrentScore().setPoints(pointsCurrent);
                     }
                 }
                 //No second Left available
                 else {
 
-                    int pointsFirstLeft = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentSc) + bp.getStrikeTenPoints();
-                    firstLeftScore.setPoints(pointsFirstLeft);
-                    int pointsCurrent = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentScoreFrameObject);
-                    currentSc.setPoints(pointsCurrent);
+                    int pointsFirstLeft = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore()) + bp.getStrikeTenPoints();
+                    scoresObject.getFirstLeftScore().setPoints(pointsFirstLeft);
+                    int pointsCurrent = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                    scoresObject.getCurrentScore().setPoints(pointsCurrent);
                 }
             }
             //Check if previous was a spare
-            else if (firstLeftScore != null && ct.checkIsSpare(firstLeftScore)) {
+            else if (scoresObject.getFirstLeftScore() != null && ct.checkIsSpare(scoresObject.getFirstLeftScore())) {
 
-                if (secondLeftScore != null) {
+                if (scoresObject.getSecondLeftScore() != null) {
 
-                    int firstPoints = secondLeftScore.getPoints() + bp.getSparePoints() + currentSc.getFirstScoreFramePoint();
-                    firstLeftScore.setPoints(firstPoints);
+                    int firstPoints = scoresObject.getSecondLeftScore().getPoints() + bp.getSparePoints() + scoresObject.getCurrentScore().getFirstScoreFramePoint();
+                    scoresObject.getFirstLeftScore().setPoints(firstPoints);
 
-                    int currentPoints = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentScoreFrameObject);
-                    currentSc.setPoints(currentPoints);
+                    int currentPoints = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                    scoresObject.getCurrentScore().setPoints(currentPoints);
                 } else {
 
-                    int firstPoints = firstLeftScore.getPoints() + bp.getSparePoints() + currentSc.getFirstScoreFramePoint();
-                    firstLeftScore.setPoints(firstPoints);
+                    int firstPoints = scoresObject.getFirstLeftScore().getPoints() + bp.getSparePoints() + scoresObject.getCurrentScore().getFirstScoreFramePoint();
+                    scoresObject.getFirstLeftScore().setPoints(firstPoints);
 
-                    int currentPoints = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentScoreFrameObject);
-                    currentSc.setPoints(currentPoints);
+                    int currentPoints = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                    scoresObject.getCurrentScore().setPoints(currentPoints);
                 }
             }
             //Check if previous was not a strike or spare
-            else if (firstLeftScore != null && ct.checkIsNormalPoints(firstLeftScore)) {
-                int points = firstLeftScore.getPoints() + calcCurrentScoreFramePointSum(currentScoreFrameObject);
-                currentSc.setPoints(points);
+            else if (scoresObject.getFirstLeftScore() != null && ct.checkIsNormalPoints(scoresObject.getFirstLeftScore())) {
+                int points = scoresObject.getFirstLeftScore().getPoints() + calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                scoresObject.getCurrentScore().setPoints(points);
             } else {
-                int points = calcCurrentScoreFramePointSum(currentScoreFrameObject);
-                currentSc.setPoints(points);
+                int points = calcCurrentScoreFramePointSum(scoresObject.getCurrentScore());
+                scoresObject.getCurrentScore().setPoints(points);
             }
         }
     }

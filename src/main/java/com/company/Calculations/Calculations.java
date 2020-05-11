@@ -1,6 +1,7 @@
 package com.company.Calculations;
 
 import com.company.ObjectClasses.DataObject;
+import com.company.ObjectClasses.ScoreAndPrevScoresObject;
 import com.company.ObjectClasses.ScoreFrameObject;
 
 //-------------------------------------------------------------!
@@ -54,40 +55,42 @@ public class Calculations {
         SpareCalculations spareCalc = new SpareCalculations();
         StrikeCalculations strikeCalc = new StrikeCalculations();
         NonSpareStrikeCalculations nonSpaStrCalc = new NonSpareStrikeCalculations();
+        ScoreAndPrevScoresObject scoPrevScoObj = new ScoreAndPrevScoresObject();
 
-        ScoreFrameObject currentSc = currentScoreFrameObject;
-        ScoreFrameObject firstLeftScore = null;
-        ScoreFrameObject secondLeftScore = null;
-        ScoreFrameObject thirdLeftScore  = null;
+        scoPrevScoObj.setCurrentScore(currentScoreFrameObject);
+        scoPrevScoObj.setFirstLeftScore(null);
+        scoPrevScoObj.setSecondLeftScore(null);
+        scoPrevScoObj.setThirdLeftScore(null);
+
 
         if(gameLength <= 1 ){
             int points = calcCurrentScoreFramePointSum(currentScoreFrameObject);
-            currentSc.setPoints(points);
+            scoPrevScoObj.getCurrentScore().setPoints(points);
 
         } else {
 
-            if (currentSc.getFrameID() >= 2) {
-                firstLeftScore = getFirstLeftScoreFrame(currentSc);
+            if (scoPrevScoObj.getCurrentScore().getFrameID() >= 2) {
+                scoPrevScoObj.setFirstLeftScore(getFirstLeftScoreFrame(scoPrevScoObj.getCurrentScore()));
 
-                if (currentSc.getFrameID() >= 3) {
-                    secondLeftScore = getSecondLeftScoreFrame(currentSc);
+                if (scoPrevScoObj.getCurrentScore().getFrameID() >= 3) {
+                    scoPrevScoObj.setSecondLeftScore(getSecondLeftScoreFrame(scoPrevScoObj.getCurrentScore()));
                 }
 
-                if (currentSc.getFrameID() >= 4) {
-                    thirdLeftScore = getThirdLeftScoreFrame(currentScoreFrameObject);
+                if (scoPrevScoObj.getCurrentScore().getFrameID() >= 4) {
+                    scoPrevScoObj.setThirdLeftScore(getThirdLeftScoreFrame(scoPrevScoObj.getCurrentScore()));
                 }
             }
 
-            strikeCalc.Calculating_Strike(currentSc, gameLength, firstLeftScore,secondLeftScore,thirdLeftScore);
-            spareCalc.Calculating_Spare(currentSc, gameLength, firstLeftScore,secondLeftScore,thirdLeftScore);
-            nonSpaStrCalc.Calculating_NonSpareStrike(currentSc, gameLength, firstLeftScore,secondLeftScore,thirdLeftScore);
+            strikeCalc.Calculating_Strike(scoPrevScoObj, gameLength);
+            spareCalc.Calculating_Spare(scoPrevScoObj, gameLength);
+            nonSpaStrCalc.Calculating_NonSpareStrike(scoPrevScoObj, gameLength);
 
         }
 
-    currentSc = null;
-    firstLeftScore = null;
-    secondLeftScore = null;
-    thirdLeftScore  = null;
+        scoPrevScoObj.setCurrentScore(null);
+        scoPrevScoObj.setFirstLeftScore(null);
+        scoPrevScoObj.setSecondLeftScore(null);
+        scoPrevScoObj.setThirdLeftScore(null);
 
     }
     /**
