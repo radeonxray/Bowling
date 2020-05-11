@@ -23,7 +23,7 @@ public class POSTOperations {
         postCon.POST(postObjectJsonString);
 
         // To be removed later!
-        System.out.println("The following JSON string has been sent: \n" + postObjectJsonString);
+        //System.out.println("The following JSON string has been sent: \n" + postObjectJsonString);
     }
 
 

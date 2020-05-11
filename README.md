@@ -8,7 +8,7 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
 
 **Project Type**: *Java Maven*
 
-**Created with IDE**: *Intellij 2020.1*
+**Created with IDE**: *IntelliJ 2020.1*
 
 ##
 ### How to run:
@@ -17,7 +17,8 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
 * Make sure the IDE is pointing on the ***Main***-java. 
     * Alternative, right click on the ***Main***-file (should be located *Bowling/src/main/java/com.company/main.java*)
 * Current results should be shown in the console as text elements
-
+* Run the application
+    * Results are shown in the console and posted through the POST-API
 #
 
 ### Incomplete Work and minor thoughts
@@ -51,13 +52,19 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
  #### Order of Approach
  
  * Back to *Java*
+ * Adding *Maven*-framework, in order to easier access external libraries through dependencies
  * GET the data
  * Create objects to contain the data
  * Convert the data to be more easily accessible 
  * Manipulate the data
  * Exploration into how to do the calculations
  * Make it possible to POST the data
- * Getting trapped in the creation of the calculations, some good, mostly bad.
+ * Commenting code
+ * Getting trapped in the creation of the calculations
+ * Kept working on the calculations, bloating the Calculations.java-file
+ * Main.java also got semi-bloated
+ * Few stabs at testing with JUNIT
+ * Big clean-up of code, but never enough.
  
  ##
  

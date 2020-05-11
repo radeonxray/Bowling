@@ -35,7 +35,6 @@ public class POSTConnection {
         }
 
         int code = con.getResponseCode();
-        System.out.println(code);
         setRepsonseCode(code);
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))){
