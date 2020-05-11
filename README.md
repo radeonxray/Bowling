@@ -48,8 +48,22 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
     * Did not complete any major or minor testing of the actual program
  
  ##
+ #### Order of Approach
  
- ### Misc   
+ * Back to *Java*
+ * GET the data
+ * Create objects to contain the data
+ * Convert the data to be more easily accessible 
+ * Manipulate the data
+ * Exploration into how to do the calculations
+ * Make it possible to POST the data
+ * Getting trapped in the creation of the calculations, some good, mostly bad.
  
  ##
+ 
+ ### Misc   
+ ![alt text](bowlingp1.JPEG)
+ ![alt text](bowlingp2.JPEG)
+ ![alt text](bowlingp3.JPEG)
+ ## 
      

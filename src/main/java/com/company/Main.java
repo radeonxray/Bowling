@@ -27,20 +27,11 @@ public class Main {
 
         System.out.println(dataObj.getListOfFrameScores());
 
-
         Calculations calc = new Calculations();
         calc.assignDataObject(dataObj);
 
-        DataObject customData = new DataObject();
 
-        System.out.println(customData.getListOfFrameScores());
 
-        List<ScoreFrameObject> listScores = new ArrayList<>();
-        listScores.add(new ScoreFrameObject(new int[]{6,4}, false, false, false, 0, 1));
-        listScores.add(new ScoreFrameObject(new int[]{7,3}, false, false, false, 0, 2));
-        listScores.add(new ScoreFrameObject(new int[]{6,1}, false, false, false, 0, 3));
-
-        customData.setListOfFrameScores(listScores);
 
         assignArray(dataObj, calc);
 
@@ -79,17 +70,17 @@ public class Main {
 
 
         // ------------- POST Data ------------ //
-/*
+
         POSTOperations postOPS = new POSTOperations();
 
-        calc.temp_addToFinalPoints(dataObj);
+        //calc.temp_addToFinalPoints(dataObj);
 
         System.out.println(dataObj.getFinalScoreList().toString() + " !!!! ");
 
         String jsonString = postOPS.prepareJSONString_toPost(new POSTObject(dataObj.getToken(), dataObj.getFinalScoreList()));
 
         postOPS.postToAPI(jsonString);
-*/
+
         //System.out.println(jsonString + " : ! : ! ");
         
 
@@ -132,6 +123,11 @@ public class Main {
         for (int i = 0; i < dataObj.getListOfFrameScores().size(); i++) {
             System.out.println(dataObj.getListOfFrameScores().get(i).getPoints());
         }
+
+        for (int i = 0; i < dataObj.getListOfFrameScores().size(); i++) {
+            dataObj.getFinalScoreList().add(dataObj.getListOfFrameScores().get(i).getPoints());
+        }
+
 
     }
 }

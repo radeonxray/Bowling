@@ -12,6 +12,11 @@ import java.net.URL;
 
 public class POSTConnection {
 
+    private int repsonseCode;
+
+    /**
+     * Method to POST a jsonString to the pre-specified server
+     * @param jsonPOSTString: a jsonResponse string containing a token and the final score results*/
     public void POST(String jsonPOSTString) throws IOException {
 
         URL url = new URL ("http://13.74.31.101/api/points");
@@ -31,6 +36,7 @@ public class POSTConnection {
 
         int code = con.getResponseCode();
         System.out.println(code);
+        setRepsonseCode(code);
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))){
             StringBuilder response = new StringBuilder();
@@ -40,5 +46,13 @@ public class POSTConnection {
             }
             System.out.println("The following JSON string has been sent: \n" + jsonPOSTString);
         }
+    }
+
+    public int getRepsonseCode() {
+        return repsonseCode;
+    }
+
+    public void setRepsonseCode(int repsonseCode) {
+        this.repsonseCode = repsonseCode;
     }
 }

@@ -12,7 +12,6 @@ import java.util.Random;
  * */
 public class Calculations {
 
-    private List<Integer> finalList;
     private DataObject dataObj;
     private int sparePoints = 10;
     private int strikeTenPoints = 10;

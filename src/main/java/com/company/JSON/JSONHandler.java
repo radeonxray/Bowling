@@ -23,7 +23,7 @@ public class JSONHandler {
         Random rand = new Random();
 
         //Instantiate a List of <ScoreFrameObject>, as an ArrayList
-        List<ScoreFrameObject> listArrScores = new ArrayList<ScoreFrameObject>();
+        List<ScoreFrameObject> listArrScores = new ArrayList<>();
 
         //For-loop going through all the content of the provided JSONArray
         for (int i=0; i < jsonArrScores.length() ; i++ ){
@@ -40,9 +40,6 @@ public class JSONHandler {
             //Assigning a frameID
             //Note that the frameID is assigned as i+1. to better simulate a scoreboard going from 1 to 10, instead of 0-9 used by the ArrayList
             listArrScores.get(i).setFrameID(i+1);
-
-            //NEEDS TO BE REMOVED AT THE END!
-            //listArrScores.get(i).setPoints(rand.nextInt(11));
 
         }
 

@@ -19,8 +19,8 @@ public class GETConnection {
     private DataObject dataObj;
     private String stringBufferResponse;
 
-    /**Method for Calling the pre-defined API, read the content and return the response as a String
-     * */
+    /**Method for Calling the pre-defined API, read the content and return the response
+     *@return Returns the response as a String */
     public String getData() throws IOException{
         dataObj = new DataObject();
         URL url = new URL(apiPoint);

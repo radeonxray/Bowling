@@ -14,15 +14,13 @@ public class POSTOperations {
         jsonObject.put("token", postObject.getToken());
         jsonObject.put("points", postObject.getPoints());
 
-        String jsonString = jsonObject.toString();
-
-        return jsonString;
+        return jsonObject.toString();
     }
 
     public void postToAPI(String postObjectJsonString) throws IOException {
         POSTConnection postCon = new POSTConnection();
 
-        //postCon.POST(postObjectJsonString);
+        postCon.POST(postObjectJsonString);
 
         // To be removed later!
         System.out.println("The following JSON string has been sent: \n" + postObjectJsonString);
