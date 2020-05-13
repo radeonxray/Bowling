@@ -41,6 +41,9 @@ public class JSONHandler {
             //Note that the frameID is assigned as i+1. to better simulate a scoreboard going from 1 to 10, instead of 0-9 used by the ArrayList
             listArrScores.get(i).setFrameID(i+1);
 
+            //Set each scores final points to 0
+            listArrScores.get(i).setPoints(0);
+
         }
 
         //Return the List when done

@@ -7,6 +7,22 @@ public class ScoreFrameObject {
     private int[] framePoints = new int[2];
     private boolean strike, spare, normal;
     private int points, frameID;
+    private ScoreType scoreType;
+
+    public enum ScoreType {
+        UNKNOWN,
+        SPARE,
+        STRIKE,
+        NORMAL,
+
+    }
+
+    public ScoreFrameObject(int[] framePoints, int points, int frameID, ScoreType scoreType) {
+        this.framePoints = framePoints;
+        this.points = points;
+        this.frameID = frameID;
+        this.scoreType = scoreType;
+    }
 
     public ScoreFrameObject(int[] framePoints) {
         this.framePoints = framePoints;
@@ -72,6 +88,14 @@ public class ScoreFrameObject {
     public int getFrameID() { return frameID;}
 
     public void setFrameID(int frameID) { this.frameID = frameID;}
+
+    public ScoreType getScoreType() {
+        return scoreType;
+    }
+
+    public void setScoreType(ScoreType scoreType) {
+        this.scoreType = scoreType;
+    }
 
     @Override
     public String toString() {
