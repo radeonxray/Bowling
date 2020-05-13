@@ -58,6 +58,8 @@ Original Assignment Description [found here](https://github.com/skat/bowling-opg
     
 * Calculations
     * New and improved calculations!
+    * Because of the rule that if a game ends prematurely the last score has to counted as just a normal-score, no matter if it was a strike or spare, thus no bonus, I decided that it would have a knock-on effect of the previous scores also.
+      * Ex: The last 3 scores are strikes, X, X,X, the final score will then be [10,20,30]
 
 * Test 
     * Lots more Test have been done!
