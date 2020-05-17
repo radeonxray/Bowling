@@ -30,7 +30,7 @@ class SpareCalculationsVerTwoTest {
 
     }
 
-    /** NOT WORKING AS INTENDED! GIVES [8, 34, 50, 56, 63, 70, 77]
+    /**
      * Test that the current SPARE correctly awards the correct points, if the previous score was a STRIKE*/
     @Test
     void ifPreviousWasStrike() {
@@ -53,7 +53,7 @@ class SpareCalculationsVerTwoTest {
 
     }
 
-    /** NOT WORKING AS INTENDED!
+    /**
      * Test that the current SPARE correctly awards the correct points, if the previous 2 score were both STRIKE in the beginning of the game*/
     @Test
     void ifPreviousWasDoubleStrike_twoStrikesFirstScores() {
@@ -72,10 +72,10 @@ class SpareCalculationsVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[28, 48, 68, 85, 92, 99]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[28, 48, 67, 76, 83, 90]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /** NOT WORKING AS INTENDED!
+    /**
      * Test that the current SPARE correctly awards the correct points, if the previous 2 score were both STRIKE*/
     @Test
     void ifPreviousWasDoubleStrike() {
@@ -95,6 +95,6 @@ class SpareCalculationsVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[28, 48, 68, 85, 92, 99]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[7, 35, 55, 70, 77, 82, 87]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 }

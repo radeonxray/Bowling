@@ -15,10 +15,13 @@ public class NormalCalculationsVerTwo {
 
         if(objList.getFirstLeftScore() != null){
 
-            if(objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "STRIKE"){
-                ifPreviousWasDoubleStrike(objList);
-            } else if(objList.getFirstLeftScore().getScoreType().toString() == "STRIKE") {
-                ifPreviousWasStrike(objList);
+
+            if(objList.getFirstLeftScore().getScoreType().toString() == "STRIKE"){
+                if(objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "STRIKE"){
+                    ifPreviousWasDoubleStrike(objList);
+                } else {
+                    ifPreviousWasStrike(objList);
+                }
             }
 
             if(objList.getFirstLeftScore().getScoreType().toString() == "SPARE"){

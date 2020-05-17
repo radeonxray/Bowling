@@ -38,7 +38,7 @@ public class SpareCalculationsVerTwo {
             //System.out.println("NOT NULL! " + objList.getSecondLeftScore().getPoints() + " : " );
             int pointsStrikeBeforeSpare_secondNotNull = objList.getSecondLeftScore().getPoints() + bp.getStrikeFullPoints();
             objList.getFirstLeftScore().setPoints(pointsStrikeBeforeSpare_secondNotNull);
-            //System.out.println(objList.getFirstLeftScore().getPoints());
+            System.out.println(objList.getFirstLeftScore().getPoints());
 
         } else {
 
