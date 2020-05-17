@@ -14,18 +14,22 @@ public class SpareCalculationsVerTwo {
      * Method that calculates the points for the provided SPARE object*/
     public void calculateSpare(ScoreAndPrevScoresObject objList){
 
-        if(objList.getFirstLeftScore() != null && objList.getFirstLeftScore().getScoreType().toString() == "STRIKE") {
-            if(objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "STRIKE"){
-                ifPreviousWasDoubleStrike(objList);
-            } else {
-                ifPreviousWasStrike(objList);
+        if(objList.getFirstLeftScore() != null){
+            if(objList.getFirstLeftScore().getScoreType().toString() == "STRIKE") {
+                if(objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "STRIKE"){
+                    ifPreviousWasDoubleStrike(objList);
+                } else {
+                    ifPreviousWasStrike(objList);
+                }
             }
 
+            if(objList.getFirstLeftScore().getScoreType().toString() == "SPARE"){
+                ifPreviousWasSpare(objList);
+            }
         }
 
-        if(objList.getFirstLeftScore().getScoreType().toString() == "SPARE"){
-            ifPreviousWasSpare(objList);
-        }
+
+
 
     }
 

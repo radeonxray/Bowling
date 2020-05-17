@@ -24,10 +24,10 @@ public class Main {
 
         calcV2.setDataObj(dataObj);
 
-        calcV2.setDataObj(dataObj);
 
         calcV2.setupGameSize();
 
+            System.out.println( calcV2.getDataObj().getListOfFrameScores());
         calcV2.runCalculations();
 
 

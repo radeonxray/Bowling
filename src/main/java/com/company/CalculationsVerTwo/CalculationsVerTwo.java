@@ -33,7 +33,7 @@ public class CalculationsVerTwo {
 
         cst.identifyScoreType(currentScoreObj);
 
-
+/*
         System.out.println("----------");
         System.out.println("Current ID: " + currentScoreObj.getFrameID());
         if(currentScoreObj.getFrameID() > 1) {
@@ -47,7 +47,7 @@ public class CalculationsVerTwo {
         }
 
         System.out.println("----------");
-
+*/
         if(currentScoreObj.getScoreType().toString() == "STRIKE"){
             strikeCalcTwo.calculateStrike(currentAndPrevObjList);
         } else

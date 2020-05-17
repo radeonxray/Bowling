@@ -44,6 +44,7 @@ public class POSTConnection {
                 response.append(responseLine.trim());
             }
             System.out.println("The following JSON string has been sent: \n" + jsonPOSTString);
+            System.out.println(response.toString());
         }
     }
 

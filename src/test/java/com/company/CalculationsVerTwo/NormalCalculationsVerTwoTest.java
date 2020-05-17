@@ -114,6 +114,22 @@ class NormalCalculationsVerTwoTest {
         calcTwo.runCalculations();
 
         assertEquals("[8, 33, 52, 61, 64]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
 
+    /**
+     * Test that the calculations are correct, if there is only one round, and the only score was of type NORMAL*/
+    @Test
+    void ifFirstScoreWasNormal_SingleRoundGame() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,1},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[6]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 }

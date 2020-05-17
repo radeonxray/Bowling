@@ -131,7 +131,23 @@ class StrikeCalculationVerTwoTest {
         calcTwo.runCalculations();
 
         assertEquals("[7, 37, 47, 57, 67]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
 
+    /**
+     * Test that the calculations are correct, if there is only one round, and the only score was of type STRIKE*/
+    @Test
+    void ifFirstScoreWasStrike_SingleRoundGame() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[10]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
 }

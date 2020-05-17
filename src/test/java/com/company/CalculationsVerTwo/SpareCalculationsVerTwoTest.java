@@ -97,4 +97,46 @@ class SpareCalculationsVerTwoTest {
 
         assertEquals("[7, 35, 55, 70, 77, 82, 87]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
+
+    /**
+     * Test that the calculations are correct, when the first score was a Spare*/
+    @Test
+    void ifFirstScoreWasSpare() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{9,1},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{8,2},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,2},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{3,2},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{3,2},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[20, 48, 68, 83, 90, 95, 100]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /**
+     * Test that the calculations are correct, if there is only one round, and the only score was a SPARE*/
+    @Test
+    void ifFirstScoreWasSpare_SingleRoundGame() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{9,1},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[10]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+
 }
