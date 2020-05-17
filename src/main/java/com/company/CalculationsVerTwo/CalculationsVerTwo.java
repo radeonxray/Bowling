@@ -17,6 +17,9 @@ public class CalculationsVerTwo {
     private int gameSize;
     private boolean isShortGame, finalScoreDone;
     private ScoreAndPrevScoresObject currentAndPrevObjList = new ScoreAndPrevScoresObject();
+    private StrikeCalculationVerTwo strikeCalcTwo;
+    private SpareCalculationsVerTwo spareCalcTwo;
+    private NormalCalculationsVerTwo normalCalcTwo;
 
     /**
      * Method for calculating the individual score of a scoreobject
@@ -24,13 +27,11 @@ public class CalculationsVerTwo {
      * @return Returns an int */
     public void calculateIndividualScore(ScoreFrameObject currentScoreObj){
         CheckScoreType cst = new CheckScoreType();
-        StrikeCalculationVerTwo strikeCalcTwo = new StrikeCalculationVerTwo();
-        SpareCalculationsVerTwo spareCalcTwo = new SpareCalculationsVerTwo();
-        NormalCalculationsVerTwo normalCalcTwo = new NormalCalculationsVerTwo();
+        strikeCalcTwo = new StrikeCalculationVerTwo();
+        spareCalcTwo = new SpareCalculationsVerTwo();
+        normalCalcTwo = new NormalCalculationsVerTwo();
 
         currentAndPrevObjList.setCurrentScore(currentScoreObj);
-
-
         cst.identifyScoreType(currentScoreObj);
 
 /*
@@ -59,7 +60,6 @@ public class CalculationsVerTwo {
 
         if(currentScoreObj.getScoreType().toString() == "NORMAL"){
             normalCalcTwo.calculateNormal(currentAndPrevObjList);
-
         }
     }
 
@@ -103,7 +103,8 @@ public class CalculationsVerTwo {
                     assignPreviousScoreObjects(i);
                     System.out.println("Final Round - SHORT GAME " + gameSize + " : " + dataObj.getListOfFrameScores().get(i).getFrameID());
 
-                    shortGame_finishNonCalcPoints(currentAndPrevObjList);
+                    shortGame_finishNonCalcPoints_V2(currentAndPrevObjList);
+                    //shortGame_finishNonCalcPoints(currentAndPrevObjList);
 
                 } else {
 
@@ -165,41 +166,12 @@ public class CalculationsVerTwo {
 
     }
 
-
-    /**Method that is used for calculating any non-calculated scores, if the game ends abruptly (due to a short game (gameSize() < 10))*/
-    public void shortGame_finishNonCalcPoints(ScoreAndPrevScoresObject objList){
-
-        if(objList.getThirdLeftScore() != null){
-            if(objList.getSecondLeftScore().getPoints() == 0 ){
-                int pointSecond = objList.getThirdLeftScore().getPoints() + calculateFramePoints(objList.getSecondLeftScore());
-                objList.getSecondLeftScore().setPoints(pointSecond);
-            }
-            if(objList.getFirstLeftScore().getPoints() == 0){
-                int pointsFirst = objList.getSecondLeftScore().getPoints() + calculateFramePoints(objList.getFirstLeftScore());
-                objList.getFirstLeftScore().setPoints(pointsFirst);
-            }
-
-            if(objList.getCurrentScore().getPoints() == 0){
-                int pointsCurrent = objList.getFirstLeftScore().getPoints() + calculateFramePoints(objList.getCurrentScore());
-                objList.getCurrentScore().setPoints(pointsCurrent);
-            }
-
-        } else {
-
-            if(objList.getSecondLeftScore().getPoints() == 0 ){
-                int pointSecond = objList.getSecondLeftScore().getPoints() + calculateFramePoints(objList.getSecondLeftScore());
-                objList.getSecondLeftScore().setPoints(pointSecond);
-            }
-            if(objList.getFirstLeftScore().getPoints() == 0){
-                int pointsFirst = objList.getSecondLeftScore().getPoints() + calculateFramePoints(objList.getFirstLeftScore());
-                objList.getFirstLeftScore().setPoints(pointsFirst);
-            }
-
-            if(objList.getCurrentScore().getPoints() == 0){
-                int pointsCurrent = objList.getFirstLeftScore().getPoints() + calculateFramePoints(objList.getCurrentScore());
-                objList.getCurrentScore().setPoints(pointsCurrent);
-            }
-        }
+    /**Method that is used for calculating any non-calculated scores, if the game ends abruptly (due to a short game (gameSize() < 10))
+     * Method takes the current (and final) score of the game, and forces it to become a score of type NORMAL (no matter its calculated type),
+     * then runs the method for calculating normal scores */
+    public void shortGame_finishNonCalcPoints_V2(ScoreAndPrevScoresObject objList) {
+        objList.getCurrentScore().setScoreType(ScoreFrameObject.ScoreType.NORMAL);
+        normalCalcTwo.calculateNormal(currentAndPrevObjList);
 
     }
 

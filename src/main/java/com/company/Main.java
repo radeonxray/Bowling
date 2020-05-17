@@ -27,7 +27,7 @@ public class Main {
 
         calcV2.setupGameSize();
 
-            System.out.println( calcV2.getDataObj().getListOfFrameScores());
+        System.out.println( calcV2.getDataObj().getListOfFrameScores());
         calcV2.runCalculations();
 
 
