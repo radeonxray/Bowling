@@ -8,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SpareCalculationsVerTwoTest {
 
-    /**
-     * Test that the current SPARE correctly awards the correct points, if the previous score was a STRIKE in the first round*/
+    /**Test that the current SPARE correctly awards the correct points, if the previous score was a STRIKE in the first round*/
     @Test
     void ifPreviousWasStrike_firstScore() {
         DataObject dataObj = new DataObject();
@@ -30,8 +29,7 @@ class SpareCalculationsVerTwoTest {
 
     }
 
-    /**
-     * Test that the current SPARE correctly awards the correct points, if the previous score was a STRIKE*/
+    /**Test that the current SPARE correctly awards the correct points, if the previous score was a STRIKE*/
     @Test
     void ifPreviousWasStrike() {
         DataObject dataObj = new DataObject();
@@ -53,8 +51,7 @@ class SpareCalculationsVerTwoTest {
 
     }
 
-    /**
-     * Test that the current SPARE correctly awards the correct points, if the previous 2 score were both STRIKE in the beginning of the game*/
+    /**Test that the current SPARE correctly awards the correct points, if the previous 2 score were both STRIKE in the beginning of the game*/
     @Test
     void ifPreviousWasDoubleStrike_twoStrikesFirstScores() {
 
@@ -75,8 +72,7 @@ class SpareCalculationsVerTwoTest {
         assertEquals("[28, 48, 67, 76, 83, 90]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /**
-     * Test that the current SPARE correctly awards the correct points, if the previous 2 score were both STRIKE*/
+    /** Test that the current SPARE correctly awards the correct points, if the previous 2 score were both STRIKE*/
     @Test
     void ifPreviousWasDoubleStrike() {
 
@@ -98,8 +94,7 @@ class SpareCalculationsVerTwoTest {
         assertEquals("[7, 35, 55, 70, 77, 82, 87]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /**
-     * Test that the calculations are correct, when the first score was a Spare*/
+    /**Test that the calculations are correct, when the first score was a Spare*/
     @Test
     void ifFirstScoreWasSpare() {
 
@@ -121,8 +116,7 @@ class SpareCalculationsVerTwoTest {
         assertEquals("[20, 48, 68, 83, 90, 95, 100]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /**
-     * Test that the calculations are correct, if there is only one round, and the only score was a SPARE*/
+    /** Test that the calculations are correct, if there is only one round, and the only score was a SPARE*/
     @Test
     void ifFirstScoreWasSpare_SingleRoundGame() {
 
@@ -136,6 +130,115 @@ class SpareCalculationsVerTwoTest {
         calcTwo.runCalculations();
 
         assertEquals("[10]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /** Test that if the 10th score is a SPARE, that the game correctly calculates the bonus score(11th score), if that bonus score is a NORMAL [6,0] */
+    @Test
+    void spare_checkEleventhScore_NORMAL() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{0,3},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{7,3},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{6,0},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 141]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /** Test that if the 10th score is a SPARE, that the game correctly calculates the bonus score(11th score) if that bonus score is a NORMAL [6,3], and that the calculations
+     * correctly ignores the second frame of the bonus score, since its not possible to bowl a second frame in this scenario */
+    @Test
+    void spare_checkEleventhScore_NORMAL_errorScore() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{0,3},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{7,3},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{6,2},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 141]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /** Test that if the 10th score is a SPARE, that the game correctly calculates the bonus score (11th score), if that bonus score is a STRIKE */
+    @Test
+    void spare_checkEleventhScore_STRIKE() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{0,3},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{7,3},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 145]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /** Test that if the 10th score is a STRIKE, that the game correctly calculates the bonus score(11th score), if that bonus score is a SPARE [9,1] */
+    @Test
+    void spare_checkEleventhScore_SPARE() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{0,3},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{9,1},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 145]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
 

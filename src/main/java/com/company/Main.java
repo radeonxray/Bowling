@@ -24,13 +24,11 @@ public class Main {
 
         calcV2.setDataObj(dataObj);
 
+        System.out.println("Retrieved list of scores: " + dataObj.getListOfFrameScores());
 
         calcV2.setupGameSize();
 
-        System.out.println( calcV2.getDataObj().getListOfFrameScores());
         calcV2.runCalculations();
-
-
 
         // ------------- POST Data ------------ //
 

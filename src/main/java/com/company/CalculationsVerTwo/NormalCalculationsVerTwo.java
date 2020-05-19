@@ -94,7 +94,6 @@ public class NormalCalculationsVerTwo {
     public void ifPreviousWasSpare(ScoreAndPrevScoresObject objList){
 
         if(objList.getSecondLeftScore() != null){
-            System.out.println("No WAY!");
             int pointsSpareBeforeNormal_SecondNotNull = objList.getSecondLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
             objList.getFirstLeftScore().setPoints(pointsSpareBeforeNormal_SecondNotNull);
 

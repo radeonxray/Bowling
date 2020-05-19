@@ -9,8 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NormalCalculationsVerTwoTest {
 
 
-    /**
-     * Test that a given list with NORMAL scores and a single strike, is calculated correctly*/
+    /**Test that a given list with NORMAL scores and a single strike, is calculated correctly*/
     @Test
     void ifPreviousWasStrike() {
 
@@ -29,8 +28,7 @@ class NormalCalculationsVerTwoTest {
         assertEquals("[7, 25, 33, 42]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /**
-     * Test that a given list with NORMAL scores and a single SPARE, is calculated correctly*/
+    /**Test that a given list with NORMAL scores and a single SPARE, is calculated correctly*/
     @Test
     void ifPreviousWasSpare() {
 
@@ -72,8 +70,7 @@ class NormalCalculationsVerTwoTest {
 
     }
 
-    /**
-     * Check if two STRIKES at the beginning of the game is calculated correctly, if the Third score is a NORMAL*/
+    /**Check if two STRIKES at the beginning of the game is calculated correctly, if the Third score is a NORMAL*/
     @Test
     void ifPreviousWasDoubleStrike_strikesFirstTwoScores() {
 
@@ -94,8 +91,7 @@ class NormalCalculationsVerTwoTest {
 
     }
 
-    /**
-     * Check if two STRIKES in the game is calculated correctly, if they are followed by a NORMAL score */
+    /**Check if two STRIKES in the game is calculated correctly, if they are followed by a NORMAL score */
     @Test
     void ifPreviousWasDoubleStrike() {
 
@@ -116,8 +112,7 @@ class NormalCalculationsVerTwoTest {
         assertEquals("[8, 33, 52, 61, 64]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /**
-     * Test that the calculations are correct, if there is only one round, and the only score was of type NORMAL*/
+    /**Test that the calculations are correct, if there is only one round, and the only score was of type NORMAL*/
     @Test
     void ifFirstScoreWasNormal_SingleRoundGame() {
 
@@ -132,4 +127,58 @@ class NormalCalculationsVerTwoTest {
 
         assertEquals("[6]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
+
+    /**Test that if the 10th score is a STRIKE, that the game correctly calculate the bonus score, when the bonus score (11th score) is NORMAL of [5,2] */
+    @Test
+    void Normal_11thRoundGame() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{0,3},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,2},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 142]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /** Test that the game correctly calculates the scores after 10 rounds, when the game ends on a NORMAL score, resulting in NO BONUS (11th) score*/
+    @Test
+    void Normal_10thRoundGame() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{0,3},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,3},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{2,3},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 130]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
 }

@@ -24,7 +24,7 @@ class StrikeCalculationVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[30, 40, 50, 60]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[30, 60, 80, 90]",calcTwo.getDataObj().getFinalScoreList().toString());
 
     }
 
@@ -43,7 +43,7 @@ class StrikeCalculationVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[10, 20, 30]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[30, 50, 60]",calcTwo.getDataObj().getFinalScoreList().toString());
 
     }
 
@@ -82,7 +82,7 @@ class StrikeCalculationVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[7, 27, 37, 47, 54]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[7, 27, 52, 69, 76]",calcTwo.getDataObj().getFinalScoreList().toString());
 
     }
 
@@ -107,7 +107,7 @@ class StrikeCalculationVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[30, 60, 85, 102, 109, 119, 129, 139]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[30, 60, 85, 102, 109, 139, 159, 169]",calcTwo.getDataObj().getFinalScoreList().toString());
 
     }
 
@@ -130,16 +130,27 @@ class StrikeCalculationVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[7, 37, 47, 57, 67]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[7, 37, 67, 87, 97]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
     /**
-     * Test that the calculations are correct, if there is only one round, and the only score was of type STRIKE*/
+     * Test that the calculations are correct, if all scores, including the bonus scores, are strikes!
+     * [[10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 10]]*/
     @Test
-    void ifFirstScoreWasStrike_SingleRoundGame() {
+    void ifAllScoreAreStrikes() {
 
         DataObject dataObj = new DataObject();
         dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,10},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
 
         CalculationsVerTwo calcTwo = new CalculationsVerTwo();
 
@@ -147,7 +158,91 @@ class StrikeCalculationVerTwoTest {
 
         calcTwo.runCalculations();
 
-        assertEquals("[10]",calcTwo.getDataObj().getFinalScoreList().toString());
+        assertEquals("[30, 60, 90, 120, 150, 180, 210, 240, 270, 300]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /**
+     * Test that the calculations are correct, if all scores, except for the very final bonus score which is 0, are strikes!
+     * [[10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0]]*/
+    @Test
+    void ifElevenOutOfTwelveScoreAreStrikes_finalIsZero() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[30, 60, 90, 120, 150, 180, 210, 240, 270, 290]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /**
+     * Test that the calculations are correct, if all scores, except for the very final bonus score which is 7, are strikes!
+     * [[10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 7]]*/
+    @Test
+    void ifElevenOutOfTwelveScoreAreStrikes_finalIsSeven() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,7},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[30, 60, 90, 120, 150, 180, 210, 240, 270, 297]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+    /**
+     * Test that the calculations are correct, if all scores, except for the very final bonus score which is 7, are strikes!
+     * [[10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [2, 7]]*/
+    @Test
+    void ifTenOutOfTwelveScoreAreStrikes_finalIsNormalScore() {
+
+        DataObject dataObj = new DataObject();
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{2,7},0,11, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[30, 60, 90, 120, 150, 180, 210, 240, 262, 281]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
 }

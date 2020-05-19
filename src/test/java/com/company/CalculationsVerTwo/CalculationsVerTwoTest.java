@@ -29,8 +29,7 @@ class CalculationsVerTwoTest {
         assertEquals(true, calcTwo.isShortGame());
     }
 
-    /**
-     * Test that the isShortGame-boolean is set to false, if the gameSize is not less than 10*/
+    /** Test that the isShortGame-boolean is set to false, if the gameSize is not less than 10*/
     @Test
     void test_setupGameSize_isShortGame_false() {
 

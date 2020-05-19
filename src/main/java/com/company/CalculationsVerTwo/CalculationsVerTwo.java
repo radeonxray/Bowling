@@ -17,38 +17,21 @@ public class CalculationsVerTwo {
     private int gameSize;
     private boolean isShortGame, finalScoreDone;
     private ScoreAndPrevScoresObject currentAndPrevObjList = new ScoreAndPrevScoresObject();
-    private StrikeCalculationVerTwo strikeCalcTwo;
-    private SpareCalculationsVerTwo spareCalcTwo;
-    private NormalCalculationsVerTwo normalCalcTwo;
+    private StrikeCalculationVerTwo strikeCalcTwo = new StrikeCalculationVerTwo();
+    private SpareCalculationsVerTwo spareCalcTwo = new SpareCalculationsVerTwo();
+    private NormalCalculationsVerTwo normalCalcTwo = new NormalCalculationsVerTwo();
+    private CheckScoreType cst = new CheckScoreType();
 
     /**
      * Method for calculating the individual score of a scoreobject
      * @param  currentScoreObj: Requires a ScoreFrameObject
      * @return Returns an int */
     public void calculateIndividualScore(ScoreFrameObject currentScoreObj){
-        CheckScoreType cst = new CheckScoreType();
-        strikeCalcTwo = new StrikeCalculationVerTwo();
-        spareCalcTwo = new SpareCalculationsVerTwo();
-        normalCalcTwo = new NormalCalculationsVerTwo();
+
 
         currentAndPrevObjList.setCurrentScore(currentScoreObj);
         cst.identifyScoreType(currentScoreObj);
 
-/*
-        System.out.println("----------");
-        System.out.println("Current ID: " + currentScoreObj.getFrameID());
-        if(currentScoreObj.getFrameID() > 1) {
-            System.out.println("Prev ID: " + currentAndPrevObjList.getFirstLeftScore().getFrameID());
-        }
-        if(currentScoreObj.getFrameID() > 2) {
-            System.out.println("2Prev ID: " + currentAndPrevObjList.getSecondLeftScore().getFrameID());
-        }
-        if (currentScoreObj.getFrameID() > 3) {
-            System.out.println("3Prev ID: " + currentAndPrevObjList.getThirdLeftScore().getFrameID());
-        }
-
-        System.out.println("----------");
-*/
         if(currentScoreObj.getScoreType().toString() == "STRIKE"){
             strikeCalcTwo.calculateStrike(currentAndPrevObjList);
         } else
@@ -81,70 +64,109 @@ public class CalculationsVerTwo {
     }
 
     /**
-     * Method that handles running the list of scores through the CalculateIndividualScore-method
-     * @return Returns a DataObject*/
+     * Method that handles running the list of scores through the CalculateIndividualScore-method */
     public void calculationsLoops(){
 
-
-        for (int i = 0; i < getGameSize(); i++) {
-
-            if(dataObj.getListOfFrameScores().get(i).getFrameID() < getGameSize()){
-
-                assignPreviousScoreObjects(i);
-                calculateIndividualScore(dataObj.getListOfFrameScores().get(i));
-
-                System.out.println("RUNNING " + gameSize + " : " + dataObj.getListOfFrameScores().get(i).getFrameID());
-
-                resetObjList(currentAndPrevObjList);
-            }
-            else if (dataObj.getListOfFrameScores().get(i).getFrameID() == getGameSize()){
-
-                if(isShortGame && getGameSize() != 1){
-                    assignPreviousScoreObjects(i);
-                    System.out.println("Final Round - SHORT GAME " + gameSize + " : " + dataObj.getListOfFrameScores().get(i).getFrameID());
-
-                    shortGame_finishNonCalcPoints_V2(currentAndPrevObjList);
-                    //shortGame_finishNonCalcPoints(currentAndPrevObjList);
-
-                } else {
-
-                   System.out.println("Final Round " + gameSize + " : " + dataObj.getListOfFrameScores().get(i).getFrameID());
-                   int finalPoints = calculateFramePoints(dataObj.getListOfFrameScores().get(i));
-
-                   dataObj.getFinalScoreList().add(finalPoints);
-                   finalScoreDone = true;
-                }
-            }
-
+        if(getGameSize() == 1){
+            singleRound_Game(0);
         }
 
+        for (int currentScoreID = 0; currentScoreID < getGameSize(); currentScoreID++) {
+
+            if(dataObj.getListOfFrameScores().get(currentScoreID).getFrameID() < getGameSize()){
+
+                calculationPreparations(currentScoreID);
+                resetObjList(currentAndPrevObjList);
+            }
+            if(dataObj.getListOfFrameScores().get(currentScoreID).getFrameID() == 10){
+                calculationPreparations(currentScoreID);
+            }
+            if(dataObj.getListOfFrameScores().get(currentScoreID).getFrameID() == 11) {
+                bonusRoundCalculation(currentScoreID);
+            }
+            if(isShortGame && getGameSize() != 1 && dataObj.getListOfFrameScores().get(currentScoreID).getFrameID() == getGameSize()){
+                shortGame_BelowTenRounds(currentScoreID);
+            }
+        }
         if(!isFinalScoreDone()){
             setFinalListOfScores(getDataObj());
+            removeEleventhScore();
         }
 
     }
 
+    /**Method for running the assignPreviousScoresObjects-method and the calculateIndividualScoreObjects-method
+     * @param  currentScoreID: Requires the current score ID */
+    public void calculationPreparations(int currentScoreID){
+        assignPreviousScoreObjects(currentScoreID);
+        calculateIndividualScore(dataObj.getListOfFrameScores().get(currentScoreID));
+    }
+
+    /**Method for calculating the games score, if the game length is only 1 round*/
+    public void singleRound_Game(int currentScoreID){
+        int finalPoints = calculateFramePoints(dataObj.getListOfFrameScores().get(currentScoreID));
+        dataObj.getFinalScoreList().add(finalPoints);
+        finalScoreDone = true;
+    }
+
+    /**Method for running the assignPreviousScoresObjects-method and the shortGame_finishNonCalcPoints_V2-method
+     *@param  currentScoreID: Requires the current score ID */
+    public void shortGame_BelowTenRounds(int currentScoreID){
+        assignPreviousScoreObjects(currentScoreID);
+        shortGame_finishNonCalcPoints_V2(currentAndPrevObjList);
+
+    }
+
+    /**Method for calculating the final score, if the game has a bonus round, also known as the "11th" round
+     *@param  currentScoreID: Requires the current score ID */
+    public void bonusRoundCalculation(int currentScoreID){
+
+        currentAndPrevObjList.setCurrentScore(dataObj.getListOfFrameScores().get(currentScoreID));
+        assignPreviousScoreObjects(currentScoreID);
+        calculateIndividualScore(dataObj.getListOfFrameScores().get(currentScoreID));
+
+        if(dataObj.getListOfFrameScores().get(currentScoreID-1).getScoreType().toString() == "STRIKE") {
+            if (dataObj.getListOfFrameScores().get(currentScoreID).getScoreType().toString() == "STRIKE") {
+                strikeCalcTwo.strikeBonusFrame(currentAndPrevObjList);
+            }
+        }
+
+        if(dataObj.getListOfFrameScores().get(currentScoreID).getScoreType().toString() == "NORMAL"){
+            normalCalcTwo.calculateNormal(currentAndPrevObjList);
+        }
+    }
+
+    /**If the game has a bonus score (Spare or strike in the tenth framescore),
+     * this method will remove the empty or 0 score that will appear as a eleventh frame score at the end of the final score list*/
+    public void removeEleventhScore(){
+        if(gameSize > 10){
+            getDataObj().getFinalScoreList().remove((10));
+        }
+    }
+
     /**
-     * Method to set the list of the scores final points*/
+     * Method to set the list of the scores final points
+     * @param  dataObj: Requires an object of type DataObject*/
     public void setFinalListOfScores(DataObject dataObj){
         for (int i = 0; i < getGameSize(); i++) {
             dataObj.getFinalScoreList().add(dataObj.getListOfFrameScores().get(i).getPoints());
         }
     }
 
-    /**Method that assigns the currentScore and potential previous scores, based on the current round of the game*/
-    public void assignPreviousScoreObjects(int i){
+    /**Method that assigns the currentScore and potential previous scores, based on the current round of the game
+     * @param currentScoreID: Requires an int that represents the ID of the current score object*/
+    public void assignPreviousScoreObjects(int currentScoreID){
 
-        currentAndPrevObjList.setCurrentScore(dataObj.getListOfFrameScores().get(i));
+        currentAndPrevObjList.setCurrentScore(dataObj.getListOfFrameScores().get(currentScoreID));
 
-        if(i > 0){
-            currentAndPrevObjList.setFirstLeftScore(dataObj.getListOfFrameScores().get(i-1));
+        if(currentScoreID > 0){
+            currentAndPrevObjList.setFirstLeftScore(dataObj.getListOfFrameScores().get(currentScoreID-1));
         }
-        if(i > 1){
-            currentAndPrevObjList.setSecondLeftScore(dataObj.getListOfFrameScores().get(i-2));
+        if(currentScoreID > 1){
+            currentAndPrevObjList.setSecondLeftScore(dataObj.getListOfFrameScores().get(currentScoreID-2));
         }
-        if(i > 2){
-            currentAndPrevObjList.setThirdLeftScore(dataObj.getListOfFrameScores().get(i-3));
+        if(currentScoreID > 2){
+            currentAndPrevObjList.setThirdLeftScore(dataObj.getListOfFrameScores().get(currentScoreID-3));
         }
     }
 
@@ -157,13 +179,13 @@ public class CalculationsVerTwo {
     }
 
     /**
-     * Method that resets the objList, to make sure that the next CurrentScore knows the correct previous objects*/
+     * Method that resets the objList, to make sure that the next CurrentScore knows the correct previous objects
+     * @param objList: Requires a object of type ScoreAndPrevScoresObject */
     public void resetObjList(ScoreAndPrevScoresObject objList){
         objList.setCurrentScore(null);
         objList.setSecondLeftScore(null);
         objList.setFirstLeftScore(null);
         objList.setThirdLeftScore(null);
-
     }
 
     /**Method that is used for calculating any non-calculated scores, if the game ends abruptly (due to a short game (gameSize() < 10))
@@ -172,7 +194,6 @@ public class CalculationsVerTwo {
     public void shortGame_finishNonCalcPoints_V2(ScoreAndPrevScoresObject objList) {
         objList.getCurrentScore().setScoreType(ScoreFrameObject.ScoreType.NORMAL);
         normalCalcTwo.calculateNormal(currentAndPrevObjList);
-
     }
 
     public DataObject getDataObj() {
@@ -198,7 +219,6 @@ public class CalculationsVerTwo {
     public void setShortGame(boolean shortGame) {
         isShortGame = shortGame;
     }
-
 
     public boolean isFinalScoreDone() {
         return finalScoreDone;

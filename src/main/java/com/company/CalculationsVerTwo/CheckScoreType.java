@@ -67,7 +67,6 @@ public class CheckScoreType {
      *@param curScoObj Requires a ScoreFrameObject
      *@return Returns an int with the accumulated score*/
     private int calculateFramePoints(ScoreFrameObject curScoObj){
-        System.out.println(curScoObj.getFirstScoreFramePoint() + curScoObj.getSecondScoreFramePoint());
         return curScoObj.getFirstScoreFramePoint() + curScoObj.getSecondScoreFramePoint();
     }
 

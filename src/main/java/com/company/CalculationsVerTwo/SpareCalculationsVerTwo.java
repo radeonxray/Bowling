@@ -4,8 +4,7 @@ import com.company.Calculations.BowlingPoints;
 import com.company.ObjectClasses.ScoreAndPrevScoresObject;
 import com.company.ObjectClasses.ScoreFrameObject;
 
-/**Class for calculating a scoreobject that has been identified as a SPARE
- * WARNING! NOT WORKING AS INTENDED ACCORDING TO SOME TEST!*/
+/**Class for calculating a scoreobject that has been identified as a SPARE*/
 public class SpareCalculationsVerTwo {
 
     BowlingPoints bp = new BowlingPoints();
@@ -28,34 +27,24 @@ public class SpareCalculationsVerTwo {
             }
         }
 
-
-
-
     }
 
-    /**
-     * Method for calculating the current SPARE, if the previous score was a STRIKE*/
+    /**Method for calculating the current score of type SPARE, if the previous score was of type STRIKE*/
     public void ifPreviousWasStrike(ScoreAndPrevScoresObject objList){
 
         if(objList.getSecondLeftScore() != null){
 
-            //System.out.println("NOT NULL! " + objList.getSecondLeftScore().getPoints() + " : " );
             int pointsStrikeBeforeSpare_secondNotNull = objList.getSecondLeftScore().getPoints() + bp.getStrikeFullPoints();
             objList.getFirstLeftScore().setPoints(pointsStrikeBeforeSpare_secondNotNull);
-            System.out.println(objList.getFirstLeftScore().getPoints());
 
         } else {
 
             int pointsStrikeBeforeSpare = bp.getStrikeFullPoints();
             objList.getFirstLeftScore().setPoints(pointsStrikeBeforeSpare);
         }
-
-
     }
 
-    /**
-     * NOT WORKING AS INTENDED!
-     * Should calculate the score of the two preceeding STRIKES, if the current is a SPARE*/
+    /** Method for calculating the current score, if the current score is of type SPARE and the previous two scores were both of type STRIKE*/
     public void ifPreviousWasDoubleStrike(ScoreAndPrevScoresObject objList) {
         if (objList.getThirdLeftScore() != null) {
 
@@ -64,8 +53,6 @@ public class SpareCalculationsVerTwo {
 
             int points_firstLeft_DoubleStrikeBeforeSPARE_thirdNotNull = objList.getSecondLeftScore().getPoints() + bp.getStrikeFullPoints();
             objList.getFirstLeftScore().setPoints(points_firstLeft_DoubleStrikeBeforeSPARE_thirdNotNull);
-            System.out.println(points_firstLeft_DoubleStrikeBeforeSPARE_thirdNotNull + " first! NOT NULL");
-            System.out.println(points_secondLeft_DoubleStrikeBeforeSPARE_thirdNotNull + " SECOND! NOT NULL");
 
         } else {
 
@@ -75,13 +62,10 @@ public class SpareCalculationsVerTwo {
             int points_firstLeft_DoubleStrikeBeforeSPARE = objList.getSecondLeftScore().getPoints() + bp.getStrikeFullPoints();
             objList.getFirstLeftScore().setPoints(points_firstLeft_DoubleStrikeBeforeSPARE);
 
-            System.out.println(points_firstLeft_DoubleStrikeBeforeSPARE + " first!");
-            System.out.println(points_secondLeft_DoubleStrikeBeforeSPARE + " SECOND!");
         }
     }
 
-    /**NO TEST CREATED OR TESTED!!
-     * Method for calculating*/
+    /**Method for calculating the current score if it was of type SPARE, and the previous score also was of type SPARE*/
     public void ifPreviousWasSpare(ScoreAndPrevScoresObject objList){
 
         if(objList.getFirstLeftScore() !=  null){
