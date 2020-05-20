@@ -30,7 +30,7 @@ The project was  part of an assignment for a job interview with [SKAT](https://s
 The assignment tasked me to create a program and algorithm, that could retrieve a collection of scores from a bowling game from a server provided by SKAT,
  correctly calculate the scores, and finally send the calculated scores back to the SKAT servers to verify the calculations.
 
-Furthermore, the program also needed to show "a substantial amount of Test"
+Furthermore, the program also needed to show "a substantial amount of Test", in which I decided to use JUnit 5.4 for Testing.
 
 I chose to tackle the assignment using Java, due to the job-description specifying SKAT was looking for a JAVA-developer, and I added
  the MAVEN framework to easier add external libraries and dependencies.
@@ -94,6 +94,7 @@ which in retrospective would have been preferred, since it would have made it ea
 * Refactoring of individual methods to be more and easilier Test-able
 * Continue updating Documentation of method- and Test-descriptions
 * More Testing of individual methods
+* Outside of Test, make it possible to manually provide a list of scores to be calculated.
    
 # 
 
