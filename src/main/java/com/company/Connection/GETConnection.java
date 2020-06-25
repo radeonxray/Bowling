@@ -1,8 +1,6 @@
 package com.company.Connection;
 
-import com.company.JSON.JSONHandler;
 import com.company.ObjectClasses.DataObject;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,15 +13,15 @@ import java.net.URL;
  * */
 public class GETConnection {
 
-    private String apiPoint = "http://13.74.31.101/api/points";
     private DataObject dataObj;
     private String stringBufferResponse;
 
     /**Method for Calling the pre-defined API, read the content and return the response
+     * Uses the old HttpURLConnection
      *@return Returns the response as a String */
-    public String getData() throws IOException{
+    public String getData_HttpURLConnection(String apiURL) throws IOException{
         dataObj = new DataObject();
-        URL url = new URL(apiPoint);
+        URL url = new URL(apiURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
