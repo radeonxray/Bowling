@@ -23,7 +23,7 @@ public class StrikeCalculationVerTwo {
 
     /**Method that checks for bonus point calculations, if the current score and the 2 previous scores all are strikes*/
     public void checkIfTripleStrike(ScoreAndPrevScoresObject objList) {
-
+        System.out.println("Current score: ID "+ objList.getCurrentScore().getFrameID() + " : Points " + objList.getCurrentScore().getPoints());
         if (objList.getThirdLeftScore() != null) {
 
             if (objList.getFirstLeftScore() != null && objList.getFirstLeftScore().getScoreType().toString() == "STRIKE") {
@@ -40,6 +40,7 @@ public class StrikeCalculationVerTwo {
 
                 if (objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "STRIKE") {
 
+                    System.out.println("Current score: ID "+ objList.getCurrentScore().getFrameID() + " : Points " + objList.getCurrentScore().getPoints());
                     int threeOrBelowScores_firstStrikeInTripleStrike_points = objList.getSecondLeftScore().getPoints() + bp.getTripleStrikePoints();
                     objList.getSecondLeftScore().setPoints(threeOrBelowScores_firstStrikeInTripleStrike_points);
                 }
@@ -77,8 +78,6 @@ public class StrikeCalculationVerTwo {
     public void bonusFrame_doubleStrike(ScoreAndPrevScoresObject objList){
         if(objList.getCurrentScore().getFirstScoreFramePoint() == 10 && objList.getCurrentScore().getSecondScoreFramePoint() == 10 ){
             if(objList.getFirstLeftScore().getScoreType().toString() == "STRIKE"){
-                int tenthFrameScorePoints = objList.getThirdLeftScore().getPoints() + bp.getTripleStrikePoints();
-                objList.getSecondLeftScore().setPoints(tenthFrameScorePoints);
 
                 int tenthBonusFrame_theEleventhFrame_points = objList.getSecondLeftScore().getPoints() + bp.getTripleStrikePoints();
                 objList.getFirstLeftScore().setPoints(tenthBonusFrame_theEleventhFrame_points);

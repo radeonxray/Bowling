@@ -261,7 +261,7 @@ class SpareCalculationsVerTwoTest {
         assertEquals("[17, 36, 46]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /** Larger test of triple spare caulculations */
+    /** Larger test of points with multiple instances of spares */
     @Test
     void spare_checkCoupleScoresAreSpares() {
 
@@ -288,7 +288,7 @@ class SpareCalculationsVerTwoTest {
         assertEquals("[17, 36, 51, 58, 67, 73, 98, 115, 122, 152]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
-    /** Larger test of triple spare caulculations */
+    /** Larger test of triple spare caulculations with (almost) all spare points */
     @Test
     void spare_checkAllScoresAreSpares() {
 

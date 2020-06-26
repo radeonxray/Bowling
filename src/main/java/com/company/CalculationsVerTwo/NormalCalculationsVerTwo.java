@@ -64,7 +64,6 @@ public class NormalCalculationsVerTwo {
     public void ifPreviousWasDoubleStrike(ScoreAndPrevScoresObject objList){
 
         if(objList.getThirdLeftScore() != null){
-
             int points_secondLeft_DoubleStrikeBeforeNormal_thirdNotNull = objList.getThirdLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getStrikeFullPoints();
             objList.getSecondLeftScore().setPoints(points_secondLeft_DoubleStrikeBeforeNormal_thirdNotNull);
 
@@ -86,7 +85,6 @@ public class NormalCalculationsVerTwo {
             objList.getCurrentScore().setPoints(pointsForNormalAfterDoubleStrike);
 
         }
-
     }
 
     /**

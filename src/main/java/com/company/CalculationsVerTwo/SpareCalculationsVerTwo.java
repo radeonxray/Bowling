@@ -23,8 +23,12 @@ public class SpareCalculationsVerTwo {
             }
 
             if(objList.getFirstLeftScore().getScoreType().toString() == "SPARE"){
-                ifPreviousWasSpare(objList);
-            }
+                if( objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "SPARE"){
+                    ifPreviousDoubleSpare(objList);
+                } else {
+                    ifPreviousWasSpare(objList);
+                }
+                }
         }
 
     }
@@ -70,6 +74,16 @@ public class SpareCalculationsVerTwo {
 
         if(objList.getFirstLeftScore() !=  null){
             int pointsForSpareBeforeSpare = objList.getFirstLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
+            objList.getFirstLeftScore().setPoints(pointsForSpareBeforeSpare);
+        }
+
+    }
+
+    /**Method for calculating, if the previous 2 scores was of type SPARE*/
+    public void ifPreviousDoubleSpare(ScoreAndPrevScoresObject objList){
+
+        if(objList.getSecondLeftScore() != null){
+            int pointsForSpareBeforeSpare = objList.getSecondLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
             objList.getFirstLeftScore().setPoints(pointsForSpareBeforeSpare);
         }
 
