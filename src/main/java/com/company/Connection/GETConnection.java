@@ -6,7 +6,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import static com.company.Connection.HttpClientSetup.httpClient;
 
 /**
  * Class for handling the GET-api call and retrieving the data
@@ -15,6 +20,20 @@ public class GETConnection {
 
     private DataObject dataObj;
     private String stringBufferResponse;
+
+    public String getData_HttpClient(String apiURL) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(apiURL))
+                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        String responseString = response.body().toString();
+
+        return responseString;
+    }
 
     /**Method for Calling the pre-defined API, read the content and return the response
      * Uses the old HttpURLConnection

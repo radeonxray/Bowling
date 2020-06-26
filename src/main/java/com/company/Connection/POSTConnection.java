@@ -7,11 +7,41 @@ import java.net.URL;
 import java.net.http.*;
 import java.time.Duration;
 
+import static com.company.Connection.HttpClientSetup.httpClient;
+
 //import static jdk.internal.net.http.HttpRequestImpl.USER_AGENT;
 
 public class POSTConnection {
 
     private int repsonseCode;
+
+
+    /**
+     * Method to POST a jsonString to the pre-specified server
+     * Method is based on the HttpClient, which supports Http2.
+     * Works perfectly with Ceo's Express js backend, but does not work with SKAT's Backend
+     * @param jsonPOSTString: a jsonResponse string containing a token and the final score results*/
+    public void Post_HttpClient(String jsonPOSTString, String apiURL) throws IOException, InterruptedException {
+
+        // add json header
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(jsonPOSTString))
+                .uri(URI.create(apiURL))
+                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .header("Content-Type", "application/json")
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        int code = response.statusCode();
+        setRepsonseCode(code);
+
+        // print status code
+        System.out.println(getRepsonseCode());
+
+        // print response body
+        System.out.println(response.body());
+    }
 
     /**
      * Method to POST a jsonString to the pre-specified server
@@ -55,47 +85,23 @@ public class POSTConnection {
         }
     }
 
-    /**
-     * Setting up the HttpClient for posting data
-     * Note that the HTTP version has been set to 1_1, so that it may work with both Skat and Ceo's backend
-     * */
-    private static final HttpClient httpClient = HttpClient.newBuilder()
-            .version(HttpClient.Version.HTTP_1_1)
-            .connectTimeout(Duration.ofSeconds(10))
-            .build();
-
-    /**
-     * Method to POST a jsonString to the pre-specified server
-     * Method is based on the HttpClient, which supports Http2.
-     * Works perfectly with Ceo's Express js backend, but does not work with SKAT's Backend
-     * @param jsonPOSTString: a jsonResponse string containing a token and the final score results*/
-    public void Post_HttpClient(String jsonPOSTString, String apiURL) throws IOException, InterruptedException {
-
-        // add json header
-        HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(jsonPOSTString))
-                .uri(URI.create(apiURL))
-                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-                .header("Content-Type", "application/json")
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        int code = response.statusCode();
-        setRepsonseCode(code);
-
-        // print status code
-        System.out.println(getRepsonseCode());
-
-        // print response body
-        System.out.println(response.body());
-    }
-
     public int getRepsonseCode() {
         return repsonseCode;
     }
 
     public void setRepsonseCode(int repsonseCode) {
         this.repsonseCode = repsonseCode;
+    }
+
+    /**
+     * Experiment for Error-handling, not complete, nor implemented*/
+    public void errorFeedback(int responseID){
+        if(getRepsonseCode() == 404){
+            System.out.println("404 Error! Check the URL!");
+        }
+
+        if(getRepsonseCode() == 500){
+            System.out.println("500 Error!");
+        }
     }
 }

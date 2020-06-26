@@ -14,7 +14,7 @@ class GETOperationsTest {
      * Testing SkatBackend
      * Simple test to show that the token object found in the dataObject is not null*/
     @Test
-    void test_getData_getToken_SkatBackend() throws IOException {
+    void test_getData_getToken_SkatBackend() throws IOException, InterruptedException {
         GETOperations getOps = new GETOperations();
         APIConnection apiCon = new APIConnection();
         DataObject dataObj = getOps.getData(apiCon.getSkatBackendApi());
@@ -26,7 +26,7 @@ class GETOperationsTest {
      * Testing CeoBackend
      * Simple test to show that the token object found in the dataObject is not null*/
     @Test
-    void test_getData_getToken_CeoBackend() throws IOException {
+    void test_getData_getToken_CeoBackend() throws IOException, InterruptedException {
         GETOperations getOps = new GETOperations();
         APIConnection apiCon = new APIConnection();
         DataObject dataObj = getOps.getData(apiCon.getCeoBackendApi());
