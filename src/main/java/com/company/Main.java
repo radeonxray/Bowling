@@ -25,7 +25,7 @@ public class Main {
         apiConn.getSkatBackendApi()
          */
 
-        appStart.ExecuteApp(apiConn.getCeoBackendApi());
+        appStart.ExecuteApp(apiConn.getSkatBackendApi());
     }
 
 
