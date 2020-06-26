@@ -15,6 +15,11 @@
 * Make sure the IDE is pointing on the ***Main***-java. 
     * Alternative, right click on the ***Main***-file (should be located *Bowling/src/main/java/com.company/main.java*) and select the "Run Main.main()"
 * Run the application
+    * **Important Note: By default, the app will use the API/URL provided by SKAT ( apiConn.getSkatBackendApi() )**
+    * **To switch API/URL to be used when running the app, open Main.js and change the method being used from apiConn**
+    * **The app, by default, has 2 API/URL**
+        * *apiConn.getSkatBackend()*
+        * *apiConn.getCeoBackend()*        
 * The following processes are being shown in the console when the application is run:
     * Displays the scores retrieved from the server to be calculated
     * Displays the calculated results and the token, to be send to the server for verification
