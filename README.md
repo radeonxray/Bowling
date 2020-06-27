@@ -16,8 +16,8 @@
     * Alternative, right click on the ***Main***-file (should be located *Bowling/src/main/java/com.company/main.java*) and select the "Run Main.main()"
 * Run the application
     * **Important Note: By default, the app will use the API/URL provided by SKAT ( apiConn.getSkatBackendApi() )**
-    * **To switch API/URL to be used when running the app, open Main.js and change the method being used from apiConn**
-    * **The app, by default, has 2 API/URL**
+    * To switch API/URL to be used when running the app, open Main.js and change the method being used from apiConn
+    * The app, by default, has 2 API/URL
         * *apiConn.getSkatBackend()*
         * *apiConn.getCeoBackend()*   
             * *Note: as of 26/6-2020 the apiConn.getCeoBackend() currently only works on localhost. Will be updated with the correct api-path to ceobackend, once it's ready*     
