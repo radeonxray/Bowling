@@ -181,4 +181,6 @@ class NormalCalculationsVerTwoTest {
         assertEquals("[8, 33, 52, 61, 64, 72, 97, 116, 125, 130]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
+
+
 }
