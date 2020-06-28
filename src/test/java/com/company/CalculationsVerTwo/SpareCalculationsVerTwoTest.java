@@ -342,5 +342,33 @@ class SpareCalculationsVerTwoTest {
         assertEquals("[30, 56, 76, 88, 103, 120, 129, 134, 142, 172]",calcTwo.getDataObj().getFinalScoreList().toString());
     }
 
+    /**Check if the SPARE is correctly calculated, if there was a Triple Strike beofre it!*/
+    @Test
+    void ifSecondScoreWasSpare() {
+
+        DataObject dataObj = new DataObject();
+
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{4,5},0,1, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{8,2},0,2, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{7,3},0,3, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,4, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{10,0},0,5, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{8,1},0,6, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{6,3},0,7, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{5,4},0,8, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{8,2},0,9, ScoreFrameObject.ScoreType.UNKNOWN));
+        dataObj.getListOfFrameScores().add(new ScoreFrameObject(new int[]{8,1},0,10, ScoreFrameObject.ScoreType.UNKNOWN));
+
+        CalculationsVerTwo calcTwo = new CalculationsVerTwo();
+
+        calcTwo.setDataObj(dataObj);
+
+        calcTwo.runCalculations();
+
+        assertEquals("[9, 26, 46, 74, 93, 102, 111, 120, 138, 147]",calcTwo.getDataObj().getFinalScoreList().toString());
+    }
+
+
+
 
 }

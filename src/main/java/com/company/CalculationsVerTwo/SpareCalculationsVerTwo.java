@@ -75,10 +75,14 @@ public class SpareCalculationsVerTwo {
     /**Method for calculating the current score if it was of type SPARE, and the previous score also was of type SPARE*/
     public void ifPreviousWasSpare(ScoreAndPrevScoresObject objList){
 
-        if(objList.getFirstLeftScore() !=  null){
-            int pointsForSpareBeforeSpare = objList.getFirstLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
-            objList.getFirstLeftScore().setPoints(pointsForSpareBeforeSpare);
+        int pointsForSpareBeforeSpare;
+
+        if(objList.getSecondLeftScore() != null){
+            pointsForSpareBeforeSpare = objList.getSecondLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
+        } else {
+            pointsForSpareBeforeSpare = objList.getFirstLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
         }
+        objList.getFirstLeftScore().setPoints(pointsForSpareBeforeSpare);
     }
 
     /**Method for calculating, if the previous 2 scores was of type SPARE*/
