@@ -25,7 +25,10 @@ public class SpareCalculationsVerTwo {
             if(objList.getFirstLeftScore().getScoreType().toString() == "SPARE"){
                 if( objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "SPARE"){
                     ifPreviousDoubleSpare(objList);
-                } else {
+                } else if(objList.getSecondLeftScore() != null && objList.getSecondLeftScore().getScoreType().toString() == "STRIKE"){
+                    ifStrikeBeforePreviousSpare(objList);
+                }
+                else {
                     ifPreviousWasSpare(objList);
                 }
                 }
@@ -76,7 +79,6 @@ public class SpareCalculationsVerTwo {
             int pointsForSpareBeforeSpare = objList.getFirstLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
             objList.getFirstLeftScore().setPoints(pointsForSpareBeforeSpare);
         }
-
     }
 
     /**Method for calculating, if the previous 2 scores was of type SPARE*/
@@ -86,10 +88,14 @@ public class SpareCalculationsVerTwo {
             int pointsForSpareBeforeSpare = objList.getSecondLeftScore().getPoints() + objList.getCurrentScore().getFirstScoreFramePoint() + bp.getSparePoints();
             objList.getFirstLeftScore().setPoints(pointsForSpareBeforeSpare);
         }
-
     }
 
+    /**Method for calculating the current score if the previous score was a SPARE and the score before that SPARE was a STRIKE*/
+    public void ifStrikeBeforePreviousSpare(ScoreAndPrevScoresObject objList){
 
+            int pointsForStrikeBeforePreviousSpare = objList.getSecondLeftScore().getPoints() + bp.getSparePoints()  + objList.getCurrentScore().getFirstScoreFramePoint();
+            objList.getFirstLeftScore().setPoints(pointsForStrikeBeforePreviousSpare);
+    }
 
 
 }
