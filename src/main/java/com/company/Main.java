@@ -26,6 +26,8 @@ public class Main {
          */
 
         appStart.ExecuteApp(apiConn.getSkatBackendApi());
+
+        System.out.println(appStart.getResponse());
     }
 
 

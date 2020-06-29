@@ -1,6 +1,7 @@
 package com.company.JSON;
 
 import com.company.ObjectClasses.DataObject;
+import com.company.ObjectClasses.PostResponseObject;
 import com.company.ObjectClasses.ScoreFrameObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,6 +15,8 @@ import java.util.Random;
  * Class for handling the JSON conversion of the retrieved response
  * */
 public class JSONHandler {
+
+    private PostResponseObject pro;
 
     /** Method for converting the JSONArray containing the list of bowling scores, to a list of more managable object (ScoreFrame)
      * @param  jsonArrScores: JSONArray object
@@ -60,11 +63,8 @@ public class JSONHandler {
         //Convert StringBufferResponse to JSONObject
         JSONObject jsonResponse = new JSONObject(stringBufferResponse);
 
-        //Instantiate JSONHandler for use in the next-step
-        JSONHandler jsonHandler = new JSONHandler();
-
         //Converts the JSONArray-content, to a List<ScoreFrame> for better handling and management, in the dataObject
-        dataObj.setListOfFrameScores(jsonHandler.convert_JSONArray_to_List(jsonResponse.getJSONArray("points")));
+        dataObj.setListOfFrameScores(convert_JSONArray_to_List(jsonResponse.getJSONArray("points")));
 
         //Sets the retrieve response token in the dataObject
         dataObj.setToken(jsonResponse.get("token").toString());
@@ -73,4 +73,24 @@ public class JSONHandler {
         return dataObj;
 
     }
+
+    /**
+     * Method that converts the JSONstring response from the POST-call to a PostResponseObject
+     * @param stringPostBody Takes a response.body as a String
+     * @param responseCode Takes a responsecode as an Int*/
+    public PostResponseObject convertPostResponseToObject(String stringPostBody, int responseCode){
+
+        JSONObject jsonResponse = new JSONObject(stringPostBody);
+
+        pro = new PostResponseObject();
+
+        pro.setSuccess(jsonResponse.get("success").toString());
+
+        pro.setInput(jsonResponse.get("input").toString());
+
+        pro.setResponseCode(responseCode);
+
+        return pro;
+    }
+
 }
