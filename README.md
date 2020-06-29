@@ -86,6 +86,26 @@ and show my programming-style for future opportunities.
 This second solution has greatly improved since the version that I managed to create in under 2 days and pushed to Github, just 3 hours before the interview, and is vastly better in all areas than the first solution.
 
 The current iteration of my solution can be found in the ***CalculationsVerTwo***-folder. When running the application, this is also the solution that is being run and executed.
+
+#### New Backend, new API-option and updates
+
+A new aspect of the project that I came up with for this project, was creating my own API on my own personal Node JS/Express JS backend-server, in case the one provided by SKAT ever got shutdown or if the API-specifications of their end changed.
+
+I therefore have created a */bowling/api/points* on my own backend-server, combined with a No-SQL database that I have populated with scores, so that the GET- and POST-calls to my backend performs exactly same as SKAT does when I worked on the assignment.
+The user is able to manually switch between which API the application is going to use (*see the "How to Run"-section at the top of the readme for more information*). 
+While these API's was developed using the same JSON-structure and GET- and POST-routes as SKAT's, development of these API's was done with no access or knowledge of SKAT's source-code.
+
+While developing these API's and testing them with the application, a lot of updates, changes, bug fixing and improvements has been made.
+- I've updated the application to use the more modern *httpclient* to perform GET and POST to the backend, rather the outdated *httpurlconnection* 
+- By populating my database with scores and testing those scores on my application, those scores actually helped me to identify bugs and incorrect calculations in the application
+- Created a lot of new Test to help me identify and fix the bugs that was showing up, when testing the application with my own backend and scores
+- Application now has over 50 test
+- Database has 20+ scores, scores that are designed to really challenge the application's ability to correctly calculate them
+- A lot of refactoring for better code-layout and readability
+- Better documentation
+
+Overall, I'm really proud of my work on this new addition to the project! It has especially future proofed my own application, in case SKAT closes or make changes to their own setup.
+
 #### What is missing / Work left to be done
 
 The following is a list of features and work that I still need to complete in this project, and a few general thoughts/notes about the project :
