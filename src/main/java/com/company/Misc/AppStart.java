@@ -1,14 +1,15 @@
 package com.company.Misc;
 
 import com.company.CalculationsVerTwo.CalculationsVerTwo;
-import com.company.Connection.APIConnection;
 import com.company.ObjectClasses.DataObject;
 import com.company.ObjectClasses.POSTObject;
+import com.company.ObjectClasses.PostResponseObject;
 
 import java.io.IOException;
 
 public class AppStart {
 
+    private PostResponseObject response;
 
     /**
      * Method for Executing and running all the operations of the application, from start ot finish
@@ -39,7 +40,18 @@ public class AppStart {
 
         System.out.println(jsonString);
 
-        postOPS.postToAPI_httpclient(jsonString, apiURL);
+        response = postOPS.postToAPI_httpclient(jsonString, apiURL);
+
+        //Print Post Response
+        //System.out.println(pro.toString());
+
     }
 
+    public PostResponseObject getResponse() {
+        return response;
+    }
+
+    public void setResponse(PostResponseObject response) {
+        this.response = response;
+    }
 }

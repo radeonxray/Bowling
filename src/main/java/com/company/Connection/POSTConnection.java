@@ -1,5 +1,8 @@
 package com.company.Connection;
 
+import com.company.JSON.JSONHandler;
+import com.company.ObjectClasses.PostResponseObject;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -14,14 +17,16 @@ import static com.company.Connection.HttpClientSetup.httpClient;
 public class POSTConnection {
 
     private int repsonseCode;
+    private PostResponseObject pro;
 
 
     /**
      * Method to POST a jsonString to the pre-specified server
      * Method is based on the HttpClient, which supports Http2.
      * Works perfectly with Ceo's Express js backend, but does not work with SKAT's Backend
-     * @param jsonPOSTString: a jsonResponse string containing a token and the final score results*/
-    public void Post_HttpClient(String jsonPOSTString, String apiURL) throws IOException, InterruptedException {
+     * @param jsonPOSTString: a jsonResponse string containing a token and the final score results
+     * @return Returns a PostResponseObject*/
+    public PostResponseObject Post_HttpClient(String jsonPOSTString, String apiURL) throws IOException, InterruptedException {
 
         // add json header
         HttpRequest request = HttpRequest.newBuilder()
@@ -36,11 +41,10 @@ public class POSTConnection {
         int code = response.statusCode();
         setRepsonseCode(code);
 
-        // print status code
-        System.out.println(getRepsonseCode());
+        //Print the raw response.body-string
+        //System.out.println(response.body());
 
-        // print response body
-        System.out.println(response.body());
+        return setPostResponseObject(response.body());
     }
 
     /**
@@ -81,8 +85,14 @@ public class POSTConnection {
         } catch (Exception e){
             System.out.println("Something went terrible wrong!");
             System.out.println(e);
-
         }
+    }
+
+    public PostResponseObject setPostResponseObject(String responseBody){
+        JSONHandler jsh = new JSONHandler();
+
+        return jsh.convertPostResponseToObject(responseBody, getRepsonseCode());
+
     }
 
     public int getRepsonseCode() {
