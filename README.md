@@ -20,7 +20,6 @@
     * The app, by default, has 2 API/URL
         * *apiConn.getSkatBackend()*
         * *apiConn.getCeoBackend()*   
-            * *Note: as of 26/6-2020 the apiConn.getCeoBackend() currently only works on localhost. Will be updated with the correct api-path to ceobackend, once it's ready*     
 * The following processes are being shown in the console when the application is run:
     * Displays the scores retrieved from the server to be calculated
     * Displays the calculated results and the token, to be send to the server for verification
