@@ -93,7 +93,9 @@ A new aspect of the project that I came up with for this project, was creating m
 
 I therefore have created a */bowling/api/points* on my own backend-server, combined with a No-SQL database that I have populated with scores, so that the GET- and POST-calls to my backend performs exactly same as SKAT does when I worked on the assignment.
 The user is able to manually switch between which API the application is going to use (*see the "How to Run"-section at the top of the readme for more information*). 
-While these API's was developed using the same JSON-structure and GET- and POST-routes as SKAT's, development of these API's was done with no access or knowledge of SKAT's source-code.
+While these API's was developed using the same JSON-structure and GET- and POST-routes as SKAT's, development of these API's was done with no access or knowledge of SKAT's source-code. 
+
+For more information regarding my own developed API, please [click here](https://github.com/radeonxray/Bowling-Backend) to see the repo containing the source code for the bowling-api.
 
 While developing these API's and testing them with the application, a lot of updates, changes, bug fixing and improvements has been made.
 - I've updated the application to use the more modern *httpclient* to perform GET and POST to the backend, rather the outdated *httpurlconnection* 
